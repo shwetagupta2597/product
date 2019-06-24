@@ -11,6 +11,23 @@
   <% end %>
 <br>
 
+<div class="columns">
+<div class="column">
+<br>
+<h2> Categories </h2>
+<hr/>
+<% Product.distinct(:category).pluck(:category).each do |category| %>
+  <h3 class="fw7 f6 title"><%= link_to category, :category => category  %></h3>
+<% end %>
+<nbsp><hr/>
+<h2> Color </h2>
+<hr/>
+<% Product.distinct(:color).pluck(:color).each do |color| %>
+  <h3 class="fw7 f6 title"><%= color %></h3>
+<% end %>
+</div>
+
+<div class="column">
 <div class="product-index-grid pt4">
   <% @products.each do |product| %>
 <nbsp><hr />
@@ -39,4 +56,4 @@
   </div>
   <% end %>
 </div>
-
+</div>
