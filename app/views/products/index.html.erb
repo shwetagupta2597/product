@@ -17,13 +17,13 @@
 <h2> Categories </h2>
 <hr/>
 <% Product.distinct(:category).pluck(:category).each do |category| %>
-  <h3 class="fw7 f6 title"><%= link_to category, :category => category  %></h3>
+  <h3 class="fw7 f6 title"><%= link_to category, products_path(:category => category) %></h3>
 <% end %>
 <nbsp><hr/>
 <h2> Color </h2>
 <hr/>
 <% Product.distinct(:color).pluck(:color).each do |color| %>
-  <h3 class="fw7 f6 title"><%= color %></h3>
+  <h3 class="fw7 f6 title"><%= link_to color, products_path(:color => color) %></h3>
 <% end %>
 </div>
 

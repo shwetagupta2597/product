@@ -3,7 +3,13 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.order("created_at desc")
+    @products = if params[:category].present?
+    Product.where('category = ?', params[:category])
+    elsif params[:color].present?
+    Product.where('color = ?', params[:color])
+    else    
+    Product.all.order("created_at desc")
+    end
   end
 
   # GET /products/1
