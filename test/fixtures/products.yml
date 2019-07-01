@@ -6,7 +6,8 @@ one:
   quantity: 1
   category: MyString
   color: MyString
-  price: 9.99
+  price: 1
+  image: MyString
 
 two:
   title: MyString
@@ -14,4 +15,5 @@ two:
   quantity: 1
   category: MyString
   color: MyString
-  price: 9.99
+  price: 1
+  image: MyString

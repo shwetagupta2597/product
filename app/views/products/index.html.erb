@@ -1,59 +1,41 @@
 <% content_for :header do %>
-  <section class="hero is-warning">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Browsing products
-        </h1>
-      </div>
+    <div class="container">
+      <h1 class="title">
+        Browsing products
+      </h1>
     </div>
-  </section>
-  <% end %>
-<br>
-
-<div class="columns">
-<div class="column">
-<br>
-<h2> Categories </h2>
-<hr/>
-<% Product.distinct(:category).pluck(:category).each do |category| %>
-  <h3 class="fw7 f6 title"><%= link_to category, products_path(:category => category) %></h3>
 <% end %>
-<nbsp><hr/>
-<h2> Color </h2>
-<hr/>
-<% Product.distinct(:color).pluck(:color).each do |color| %>
-  <h3 class="fw7 f6 title"><%= link_to color, products_path(:color => color) %></h3>
-<% end %>
-</div>
+<hr/><br>
 
-<div class="column">
-<div class="product-index-grid pt4">
-  <% @products.each do |product| %>
-<nbsp><hr />
-    <div class="product border-light">
-      <div class="product-thumb">
-      <%= link_to image_tag(product.image_url(:thumb)), product %>
-      <% if product.color? %>
-      <div class="color">
-        <span class="tag is-dark"><%= product.color %></span>
-      </div>
+<div class="row">
+  <div class="col-md-3">
+    <br>
+    <h2> Categories </h2>
+    <hr/>
+    <% Product.distinct(:category).pluck(:category).each do |category| %>
+     <h3 class="fw7 f6 title"><%= link_to category, products_path(:category => category) %></h3>
     <% end %>
-      </div>
-
-<br>
-    <div class="pa3">
-
-      <h3 class="fw7 f4 title"><%= link_to product.title, product %></h3>
-
-      <p class="has-text-gray fg pt1"><%= link_to product.description, product %></p>
-
-      <p class="f3 fw6 has-text-right pt2 price"><b><%= number_to_currency(product.price) %><b></p>
-
-      <%-# <%= link_to 'Edit', edit_product_path(product), class: "button is-small" %>
-      <%-# <%= link_to 'Delete', product, method: :delete, data: { confirm: "Are you sure ?" }, class: "button is-small" %>
- </div>
+    <nbsp><hr/>
+    <h2> Color </h2>
+    <hr/>
+    <% Product.distinct(:color).pluck(:color).each do |color| %>
+      <h3 class="fw7 f6 title"><%= link_to color, products_path(:color => color) %></h3>
+    <% end %>
   </div>
+
+  <% @products.each do |product| %>
+    <div class="col-sm-6 col-md-3">
+        <div class = "thumbnail">
+          <%= link_to image_tag(product.image_url(:thumb)), product %>
+        </div>
+      
+        <div class = "caption">
+          <h3><%= link_to product.title, product %></h3>
+          <p><%= link_to product.description, product %></p>
+          <p><b><%= number_to_currency(product.price) %><b></p>
+        </div>
+    </div>
+    <nbsp>   
   <% end %>
-</div>
+
 </div>
