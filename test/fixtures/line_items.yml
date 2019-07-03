@@ -2,8 +2,8 @@
 
 one:
   product: one
-  cart: 
+  cart: one
 
 two:
   product: two
-  cart: 
+  cart: two
