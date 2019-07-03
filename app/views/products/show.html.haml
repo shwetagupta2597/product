@@ -1,0 +1,29 @@
+- content_for :body_class, 'bg-light'
+%section.section.instrument-show
+  .columns
+    .column.is-8
+      %h1.title.is-2= @product.title
+      .feature-image
+        = image_tag(@product.image_url)
+      .content.pa4.mt3.bg-white.border-radius-3
+        %h3.subtitle.is-4 Description
+        = @product.description
+        %h3.subtitle.is-4.pt5 Product Specs
+        %table.table.is-narrow
+          - if @product.category
+            %tr
+              %td.has-text-weight-bold Category:
+              %td= @product.category
+          - if @product.color
+            %tr
+              %td.has-text-weight-bold Color:
+              %td= @product.color
+          - if @product.quantity
+            %tr
+              %td.has-text-weight-bold Quantity:
+              %td= @product.quantity
+    %br/
+    .column.is-3.is-offset-1
+      .bg-white.pa4.border-radius-3
+        %h4.title.is-5.has-text-centered= number_to_currency(@product.price)
+        = button_to 'Add to cart', line_items_path(product_id: @product), class: 'button is-warning add-to-cart'

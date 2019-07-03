@@ -1,0 +1,38 @@
+- content_for :header do
+  .container
+    %h1.title
+      Browsing products
+%hr/
+%br/
+.row
+  .col-md-3
+    %br/
+    %h2 Categories
+    %hr/
+    - Product.distinct(:category).pluck(:category).each do |category|
+      %h3.fw7.f6.title
+        = link_to category, products_path(:category => category)
+    %nbsp
+      %hr/
+      %h2 Color
+      %hr/
+      - Product.distinct(:color).pluck(:color).each do |color|
+        %h3.fw7.f6.title
+          = link_to color, products_path(:color => color)
+  - @products.each do |product|
+    .col-sm-6.col-md-3
+      .thumbnail
+        = link_to image_tag(product.image_url(:thumb)), product
+      .caption
+        %h3
+          = link_to product.title, product
+        %p
+          = link_to product.description, product
+        %p
+          %b
+            = number_to_currency(product.price)
+            %b
+        - if user_signed_in? && warden.user.admin == true
+          = link_to 'Edit', edit_product_path(product), class: "button is-small"
+          = link_to 'Delete', product, method: :delete, data: { confirm: "Are you sure ?" }, class: "button is-small"
+    %nbsp

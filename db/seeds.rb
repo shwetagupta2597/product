@@ -15,6 +15,16 @@ user = User.new(
 )
 user.save!
 
+user1 = User.new(
+  id: 3,
+  name: "Shweta",
+  email: "shweta@gmail.com",
+  password: "shweta@gmail.com",
+  password_confirmation: "shweta@gmail.com",
+  admin: false
+)
+user1.save!
+
 Product.create!([{
   title: "Shiba clothes",
   description: "Paul Reed Smith Paul's Guitar",

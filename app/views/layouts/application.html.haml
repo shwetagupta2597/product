@@ -1,0 +1,52 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Product Catalogue
+    = csrf_meta_tags
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application'
+  %body{class: "#{yield (:body_class)}"}
+    - if flash[:notice]
+      .notification.is-success.global-notification
+        %p.notice= notice
+    - if flash[:alert]
+      .notification.is-danger.global-notification
+        %p.alert= alert
+    %nav.navbar.is-warning{"aria-label" => "main navigation", role: "navigation"}
+      .navbar-brand
+        = link_to root_path, class:"navbar-item" do
+          %h1.title.is-5 Product Catalogue
+        .navbar-burger.burger{"data-target" => "navbar"}
+          %span
+          %span
+          %span
+      #navbar.navbar-menu
+        .navbar-end
+          .navbar-item
+            .field.is-grouped
+              - if cart_has_items && user_signed_in?
+                = link_to cart_path(@cart), class:"navbar-item button is-warning" do
+                  %span.icon.is-small
+                    %i.fa.fa-shopping-cart
+                  %span
+                    Cart
+                    \#{cart_count_over_one}
+              - if user_signed_in?
+                - if warden.user.admin == true
+                  = link_to 'Products', new_product_path, class: "navbar-item button is-dark"
+                - else
+                  = link_to 'Products', products_path, class: "navbar-item button is-dark"
+                .navbar-item.has-dropdown.is-hoverable
+                  = link_to 'Account', "#", class: "navbar-link"
+                  .navbar-dropdown.is-right
+                    = link_to current_user.name, "#", class:"navbar-item"
+                    = link_to "Log Out", destroy_user_session_path, method: :delete, class:"navbar-item"
+              - else
+                = link_to "Sign In", new_user_session_path, class:"navbar-item button is-warning"
+                = link_to "Sign up", new_user_registration_path, class:"navbar-item button is-warning"
+    = yield(:header)
+    .container
+      = yield

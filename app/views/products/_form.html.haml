@@ -1,0 +1,42 @@
+.columns
+  .column.is-8.is-centered
+    = simple_form_for(@product) do |f|
+      = f.error_notification
+      = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+      %br/
+      .columns
+        .field.column.is-9
+          = f.input :title, required: true, input_html: { class: "input"}, wrapper: false
+        .field.column
+          = f.input :price, required: true, wrapper: false
+      .field
+        = f.input :description, required: true, input_html: { class:"textarea" }, wrapper: false
+      .columns
+        .field.column.is-4
+          %label Quantity
+          = f.input_field :quantity, wrapper: false
+        .field.column.is-4
+          %label Category
+          .control.has-icons-left
+            %span.select
+              = f.input_field :category, collection: Product::CATEGORY, prompt: "Select category"
+        .field.column
+          %label Color
+          .control.has-icons-left
+            %span.select
+              = f.input_field :color, collection: Product::COLOR, prompt: "Select color"
+      .field
+        .control
+          %label Add images
+          .file
+            %label.file-label
+              = f.input :image, as: :file, input_html: { class:"file-input product-image" }, label: false, wrapper: false
+              %span.file-cta
+                %span.file-icon
+                  %i.fa.fa-upload
+                %span.file-label Choose a file…
+      %hr/
+      .field.is-grouped
+        .control
+          = f.button :submit, class: 'button is-warning'
+          = link_to 'Cancel', products_path, class:'button is-light'

@@ -1,0 +1,7 @@
+- content_for :header do
+  .container
+    %h1.title
+      New Product
+%hr/
+.pv4
+  = render 'form', product: @product
